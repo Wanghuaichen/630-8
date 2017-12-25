@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_yangpin"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品选择:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yangpin">
+
+                    <RadioButton
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="空白" />
+
+                    <RadioButton
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:checked="true"
+                        android:text="样品" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tv_yangpinxinxi"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:text="样品信息:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ypbh"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品编号"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yangpinxinxi" />
+
+                <EditText
+                    android:id="@+id/ed_ypbh"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_ypbh"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yangpinxinxi" />
+
+                <TextView
+                    android:id="@+id/tv_jcxm"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检测项目"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypbh" />
+
+                <TextView
+                    android:id="@+id/tv_jcxm_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    app:layout_constraintLeft_toRightOf="@id/tv_jcxm"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypbh" />
+
+                <TextView
+                    android:id="@+id/tv_lydw"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="来源单位"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_jcxm" />
+
+                <TextView
+                    android:id="@+id/tv_lydw_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_jcxm" />
+
+                <TextView
+                    android:id="@+id/tv_ypcd"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品产地"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lydw" />
+
+                <TextView
+                    android:id="@+id/tv_ypcd_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lydw" />
+
+                <TextView
+                    android:id="@+id/tv_ypfl"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品分类"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypcd" />
+
+                <TextView
+                    android:id="@+id/tv_ypfl_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypcd" />
+
+                <TextView
+                    android:id="@+id/tv_ypmc"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品名称"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypfl" />
+
+                <TextView
+                    android:id="@+id/tv_ypmc_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypfl" />
+
+                <TextView
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提示信息:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypmc" />
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="50dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/editbg"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypmc" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/editbg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品编号" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="检测项目" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品名称" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品分类" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品产地" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="来源单位" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="吸光度" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="检测值" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/itemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="检测结果" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line_h" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Button
+                android:id="@+id/btn_jiance"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/jiance_100"
+                android:padding="30dp"
+                android:text="检测"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_tiaolin"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/ling_100"
+                android:padding="30dp"
+                android:text="调零"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_clear"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/clean_100"
+                android:padding="30dp"
+                android:text="清空"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_print"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/print_100"
+                android:padding="30dp"
+                android:text="打印"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_search"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/chaxun_100"
+                android:padding="30dp"
+                android:text="查询"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_video"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/shipin_100"
+                android:padding="30dp"
+                android:text="视频"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_back"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/fanhui_100"
+                android:padding="30dp"
+                android:text="返回"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

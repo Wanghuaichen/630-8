@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.8"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_yangpinxinxi"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查询条件:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ypbh"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品编号"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yangpinxinxi" />
+
+                <EditText
+                    android:id="@+id/tv_ypbh_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_ypbh"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yangpinxinxi" />
+
+                <TextView
+                    android:id="@+id/tv_jcxm"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检测项目"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypbh" />
+
+                <EditText
+                    android:id="@+id/tv_jcxm_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_jcxm"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypbh" />
+
+                <TextView
+                    android:id="@+id/tv_lydw"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="来源单位"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypmc" />
+
+                <EditText
+                    android:id="@+id/tv_lydw_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ypmc" />
+
+                <TextView
+                    android:id="@+id/tv_ypmc"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="样品名称"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_jcxm" />
+
+                <EditText
+                    android:id="@+id/tv_ypmc_v"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lydw"
+                    app:layout_constraintTop_toBottomOf="@id/tv_jcxm" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查询条件:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lydw" />
+
+                <RadioGroup
+                    android:id="@+id/radiogroup_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date">
+
+                    <RadioButton
+                        android:id="@+id/rb_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_70000000"
+                        android:checked="true"
+                        android:text="当天" />
+
+                    <RadioButton
+                        android:id="@+id/rb_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_70000000"
+                        android:text="本周" />
+
+                    <RadioButton
+                        android:id="@+id/rb_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_70000000"
+                        android:text="本月" />
+
+                    <RadioButton
+                        android:id="@+id/rb_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_70000000"
+                        android:text="本年" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tv_starttime"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始时间"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radiogroup_time" />
+
+                <TextView
+                    android:id="@+id/tv_time_start"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:drawableRight="@mipmap/more_unfold3"
+                    android:gravity="center"
+                    android:paddingRight="2dp"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_starttime"
+                    app:layout_constraintTop_toBottomOf="@id/radiogroup_time" />
+
+                <TextView
+                    android:id="@+id/tv_endtime"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结束时间"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_starttime" />
+
+                <TextView
+                    android:id="@+id/tv_time_end"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editbg"
+                    android:drawableRight="@mipmap/more_unfold3"
+                    android:gravity="center"
+                    android:paddingRight="2dp"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_endtime"
+                    app:layout_constraintTop_toBottomOf="@id/tv_starttime" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_endtime">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="2dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_dingxin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="定性结果:"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <RadioGroup
+                            android:id="@+id/radiogroup_dx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/blackstroke"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <RadioButton
+                                android:checked="true"
+                                android:id="@+id/radio_qb"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="全部" />
+
+                            <RadioButton
+                                android:id="@+id/radio_hg"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="合格" />
+
+                            <RadioButton
+                                android:id="@+id/radio_bhg"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="不合格" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_biaozhi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="上传标志:"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <RadioGroup
+                            android:id="@+id/radiogroup_scbj"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/blackstroke"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <RadioButton
+                                android:checked="true"
+                                android:id="@+id/radio_all"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="全部" />
+
+                            <RadioButton
+                                android:id="@+id/radio_ysc"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已上传" />
+
+                            <RadioButton
+                                android:id="@+id/radio_wsc"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未上传" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/editbg"
+                android:orientation="vertical"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="序号"
+                        android:visibility="gone" />
+
+                    <include
+                        layout="@layout/line_v"
+                        android:visibility="gone" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品编号" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品名称" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品类型" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="检测项目" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="样品产地" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="来源单位" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="检测日期" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="吸光度值" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="浓度值" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="定性结果" />
+
+                    <include layout="@layout/line_v" />
+
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="上传标记" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line_h" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lv_chaxun"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Button
+                android:id="@+id/btn_all"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/quanbu_100"
+                android:padding="30dp"
+                android:text="全部"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_chaxun"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/chaxun_100"
+                android:padding="30dp"
+                android:text="查询"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_tongji"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/tongji_100"
+                android:padding="30dp"
+                android:text="统计"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_del"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/clean_100"
+                android:padding="30dp"
+                android:text="删除"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_daochu"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/daochu_100"
+                android:padding="30dp"
+                android:text="导出"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/shangchuan_100"
+                android:padding="30dp"
+                android:text="上传"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_back"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/fanhui_100"
+                android:padding="30dp"
+                android:text="返回"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

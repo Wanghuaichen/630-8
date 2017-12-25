@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:id="@+id/lin_chaxun"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_ypbh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:ellipsize="end"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_ypmc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_ypfl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_jcxm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_ypcd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_lydw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_jcrq"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:padding="6dp"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_xgd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_jcz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_jcjg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/item_upload"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/normalText"
+        android:text="" />
+</LinearLayout>

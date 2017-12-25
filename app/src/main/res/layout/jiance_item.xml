@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/it_ypbh"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_jcxm"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_ypmc"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_ypfl"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_ypcd"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_lydw"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_xgd"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_jcz"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+
+    <include layout="@layout/line_v" />
+
+    <TextView
+        android:id="@+id/it_jcjg"
+        style="@style/itemText"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="" />
+</LinearLayout>

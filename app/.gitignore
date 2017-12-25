@@ -1,0 +1,4 @@
+/build
+/.externalNativeBuild
+app.iml
+/src/main/java/com/zodolabs/zzf/zf630/greendao/gen
