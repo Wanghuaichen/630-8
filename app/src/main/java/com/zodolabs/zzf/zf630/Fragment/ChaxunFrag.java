@@ -134,6 +134,7 @@ public class ChaxunFrag extends UltimateFragment implements View.OnClickListener
     protected void initEvent(Bundle savedInstanceState) {
         jianceBeanList = new ArrayList<>();
         session = App.getInstance().getDaosession();
+        session.clear();
         lv.setLayoutManager(new LinearLayoutManager(getActivity()));
         lv.addItemDecoration(new UltimateItemDecoration(getActivity(), RecyclerView.VERTICAL, 0.5f, getColor(R.color.c_70000000)));
         lv.setItemAnimator(new DefaultItemAnimator());
@@ -182,6 +183,9 @@ public class ChaxunFrag extends UltimateFragment implements View.OnClickListener
                         jianceBeanList.clear();
                         jianceBeanList.addAll(jianceBeans);
                         chaxunAdapter.notifyDataSetChanged();
+                        for(JianceBean jianceBean:jianceBeans){
+                            Log.d(TAG,"jiancebeans::"+jianceBean.toString());
+                        }
                     }
                 });
     }
@@ -215,9 +219,13 @@ public class ChaxunFrag extends UltimateFragment implements View.OnClickListener
                 tongji();
                 break;
             case R.id.btn_del:
-                Long ypbh = chaxunAdapter.getItem(curpostion).getYpbh();
-                session.getJianceBeanDao().deleteByKey(ypbh);
-                getalldata();
+                try {
+                    Long ypbh = chaxunAdapter.getItem(curpostion).getYpbh();
+                    session.getJianceBeanDao().deleteByKey(ypbh);
+                    getalldata();
+                }catch (NullPointerException e){
+                    toast("请选择要删除的项目！");
+                }
                 break;
             case R.id.btn_daochu:
                 daochu();
@@ -276,7 +284,7 @@ public class ChaxunFrag extends UltimateFragment implements View.OnClickListener
                     public void run() {
                         Map<String, Object> map = JsonFormat.formatJson(str, new String[]{"code", "message", "body"});
                         if (map.get("code").equals(200)) {
-                            Toast.makeText(getApplicationContext(), "保存并上传成功！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "上传成功！", Toast.LENGTH_SHORT).show();
                             JianceBean jianceBean = data;
                             jianceBean.setUpload("1");
                             session.getJianceBeanDao().update(jianceBean);

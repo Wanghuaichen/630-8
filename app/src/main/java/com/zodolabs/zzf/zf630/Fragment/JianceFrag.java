@@ -345,9 +345,10 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
         String ypfl = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypfl));
         String ypcd = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypcd));
         String lydw = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_lydw));
-        session.getJianceBeanDao().insertOrReplace(new JianceBean(Long.valueOf(jcbh), jcxm, ypmc, ypfl,
+        JianceBean jianceBean;
+        session.getJianceBeanDao().insertOrReplace(jianceBean=new JianceBean(Long.valueOf(jcbh), jcxm, ypmc, ypfl,
                 ypcd, lydw, String.format("%.3f",xgdvalue), String.format("%.3f",nongdu), result, new Date(), "0"));
-        Log.d(TAG,""+session.getJianceBeanDao().loadAll().size());
+        Log.d(TAG,""+session.getJianceBeanDao().loadAll().size()+jianceBean.toString());
     }
 
     /*将下位机返回的数据进行剥离*/

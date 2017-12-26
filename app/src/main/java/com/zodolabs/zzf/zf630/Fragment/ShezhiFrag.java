@@ -31,15 +31,15 @@ import java.util.List;
 
 public class ShezhiFrag extends UltimateFragment implements View.OnClickListener {
     RecyclerView lv;
-    EditText edName, edPwd,edid;
+    EditText edName, edPwd, edid;
     TextView tvPremiss;
-    Button btnSave, btnAdd,btnDel;
+    Button btnSave, btnAdd, btnDel;
 
     DaoSession session;
     List<UserInfo> userInfoList;
     private UserAdapter userAdapter;
     UserInfo userInfoItem;//被选中的item
-    int curPosition=0;
+    int curPosition = 0;
 
     @Override
     protected int setContentView() {
@@ -70,7 +70,8 @@ public class ShezhiFrag extends UltimateFragment implements View.OnClickListener
         List<UserInfo> list = session.getUserInfoDao().queryBuilder().orderAsc(UserInfoDao.Properties.Id).list();
         userInfoList.addAll(list);
         userAdapter.notifyDataSetChanged();
-        if(userInfoList.size()>0){
+        if (userInfoList.size() > 0) {
+            edid.setText(String.valueOf(userInfoList.get(0).getId()));
             edName.setText(userInfoList.get(0).getUsername());
             edPwd.setText(userInfoList.get(0).getPassword());
             tvPremiss.setText(userInfoList.get(0).getPermission());
@@ -117,25 +118,30 @@ public class ShezhiFrag extends UltimateFragment implements View.OnClickListener
                 tvPremiss.setText("普通");
                 break;
             case R.id.btn_del:
-                if(TextUtils.isEmpty(edid.getText())){
+                if (TextUtils.isEmpty(edid.getText())) {
                     toast("请先填写要删除的用户序号");
-                }else {
-                    session.getUserInfoDao().deleteByKey(Long.valueOf(edid.getText().toString()));
-                    List<UserInfo> list = session.getUserInfoDao().queryBuilder().orderAsc(UserInfoDao.Properties.Id).list();
-                    userInfoList.clear();
-                    userInfoList.addAll(list);
-                    userAdapter.notifyDataSetChanged();
+                } else {
+                    if (!TextUtils.isEmpty(edName.getText()) && !TextUtils.isEmpty(edPwd.getText()) && !TextUtils.isEmpty(edid.getText())) {
+                        session.getUserInfoDao().delete(new UserInfo(Long.valueOf(edid.getText().toString()),
+                                edName.getText().toString(), edPwd.getText().toString(), tvPremiss.getText().toString()));
+                        List<UserInfo> list = session.getUserInfoDao().queryBuilder().orderAsc(UserInfoDao.Properties.Id).list();
+                        userInfoList.clear();
+                        userInfoList.addAll(list);
+                        userAdapter.notifyDataSetChanged();
+                    } else {
+                        toast("用户名和密码、序号不能为空");
+                    }
                 }
                 break;
             case R.id.btn_save:
-                if(!TextUtils.isEmpty(edName.getText())&&!TextUtils.isEmpty(edPwd.getText())&&!TextUtils.isEmpty(edid.getText())){
-                    session.getUserInfoDao().insertOrReplace(new UserInfo(Long.valueOf(edid.getText().toString()),edName.getText().toString().trim(),
-                            edPwd.getText().toString().trim(),tvPremiss.getText().toString().trim()));
+                if (!TextUtils.isEmpty(edName.getText()) && !TextUtils.isEmpty(edPwd.getText()) && !TextUtils.isEmpty(edid.getText())) {
+                    session.getUserInfoDao().insertOrReplace(new UserInfo(Long.valueOf(edid.getText().toString()), edName.getText().toString().trim(),
+                            edPwd.getText().toString().trim(), tvPremiss.getText().toString().trim()));
                     List<UserInfo> list = session.getUserInfoDao().queryBuilder().orderAsc(UserInfoDao.Properties.Id).list();
                     userInfoList.clear();
                     userInfoList.addAll(list);
                     userAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     toast("用户名和密码、序号不能为空");
                 }
                 break;
@@ -149,12 +155,12 @@ public class ShezhiFrag extends UltimateFragment implements View.OnClickListener
 
         @Override
         protected void convert(UserInfo userInfo, UltimateRecycleHolder holder, int position) {
-            holder.setText(R.id.tv1,userInfo.getId());
+            holder.setText(R.id.tv1, userInfo.getId());
             holder.setText(R.id.tv2, userInfo.getUsername());
-            if(curPosition == position){
-                holder.setBackgroundColor(R.id.linear_item,getColor(R.color.android_holo_blue));
-            }else{
-                holder.setBackgroundColor(R.id.linear_item,getColor(R.color.white));
+            if (curPosition == position) {
+                holder.setBackgroundColor(R.id.linear_item, getColor(R.color.android_holo_blue));
+            } else {
+                holder.setBackgroundColor(R.id.linear_item, getColor(R.color.white));
             }
         }
     }

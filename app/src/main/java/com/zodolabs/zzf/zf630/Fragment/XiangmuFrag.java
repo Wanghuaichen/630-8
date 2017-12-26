@@ -64,6 +64,7 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 list.addAll((List<ItemBean>) msg.obj);
+                Log.d(TAG,"list size:"+list.size());
                 adapter.notifyDataSetChanged();
                 updateUI(list.get(0));
             } else if (msg.what == 1) {

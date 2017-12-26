@@ -38,4 +38,13 @@ public class HuiGuiBean {
     public void setXiguangdu(float xiguangdu) {
         this.xiguangdu = xiguangdu;
     }
+
+    @Override
+    public String toString() {
+        return "HuiGuiBean{" +
+                "num='" + num + '\'' +
+                ", nongdu=" + nongdu +
+                ", xiguangdu=" + xiguangdu +
+                '}';
+    }
 }
