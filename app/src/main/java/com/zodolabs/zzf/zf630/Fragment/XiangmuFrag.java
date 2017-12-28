@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +65,7 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 list.addAll((List<ItemBean>) msg.obj);
-                Log.d(TAG,"list size:"+list.size());
+                Log.d(TAG, "list size:" + list.size());
                 adapter.notifyDataSetChanged();
                 updateUI(list.get(0));
             } else if (msg.what == 1) {
@@ -264,7 +265,11 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveItemBean();
+                if(TextUtils.isEmpty(edName.getText())){
+                    saveItemBean();
+                }else{
+                    saveItemBean(list.get(itemPostion).getSDNum());
+                }
                 list.clear();
                 list.addAll(session.getItemBeanDao().queryBuilder().orderAsc(ItemBeanDao.Properties.Print).list());
                 adapter.notifyDataSetChanged();
@@ -323,23 +328,166 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         float rt_value_min = Float.valueOf(getTextViewText(edYing, "0"));
         String aglo = getTextViewText(tvHuigui, "线性回归");
         String sdnum = "6";
-        float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
-        float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
-        float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
-        float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
-        float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
-        float abs6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv2), "0"));
-        float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
-        float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
-        float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
-        float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
-        float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
-        float depth6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv3), "0"));
+        float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+        float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+        float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+        float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+        float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
+        float abs6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv3), "0"));
+        float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+        float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+        float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+        float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+        float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
+        float depth6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv2), "0"));
         ItemBean itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
                 mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
                 rt_value_min, 0, "", testtime, "", "", aglo, sdnum, abs1,
                 abs2, abs3, abs4, abs5, abs6, 0, 0, depth1, depth2, depth3, depth4,
                 depth5, depth6, 0, 0, "", "", "", "", "", "");
+        session.getItemBeanDao().insertOrReplace(itemBean);
+        SetHuiguiList(itemBean);
+    }
+
+    private void saveItemBean(String SDnum) {
+        String code = getTextViewText(edName, "");
+        Long print = Long.valueOf(getTextViewText(edXuhao, "0"));
+        String pid = getTextViewText(edBianhao, "");
+        String name = getTextViewText(tvYangpfl, "全部");
+        String t_type = getTextViewText(tvJianclb, "分光光度");
+        String unit = getTextViewText(tvNongd, "mg/kg");
+        String rtype = getTextViewText(tvJieglb, "定量");
+        String method = getTextViewText(tvJisff, "终点法");
+        String mesf = getTextViewText(tvBoc, "520");
+        String testtime = getTextViewText(edJiancsj, "0");
+        String yang = getTextViewText(tvYang, "阳性");
+        String ying = getTextViewText(tvYing, "阴性");
+        String ref = yang + "|" + "可疑" + "|" + ying;
+        float rt_value = Float.valueOf(getTextViewText(edYang, "0"));
+        float rt_value_min = Float.valueOf(getTextViewText(edYing, "0"));
+        String aglo = getTextViewText(tvHuigui, "线性回归");
+        ItemBean itemBean = null;
+        if ("1".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    0, 0, 0, 0, 0, 0, 0, depth1, 0, 0, 0,
+                    0, 0, 0, 0, "", "", "", "", "", "");
+        } else if ("2".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, 0, 0, 0, 0, 0, 0, depth1, depth2, 0, 0,
+                    0, 0, 0, 0, "", "", "", "", "", "");
+        } else if ("3".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, 0, 0, 0, 0, 0, depth1, depth2, depth3, 0,
+                    0, 0, 0, 0, "", "", "", "", "", "");
+        } else if ("4".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, abs4, 0, 0, 0, 0, depth1, depth2, depth3, depth4,
+                    0, 0, 0, 0, "", "", "", "", "", "");
+        } else if ("5".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+            float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+            float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, abs4, abs5, 0, 0, 0, depth1, depth2, depth3, depth4,
+                    depth5, 0, 0, 0, "", "", "", "", "", "");
+        } else if ("6".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+            float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
+            float abs6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+            float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
+            float depth6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, abs4, abs5, abs6, 0, 0, depth1, depth2, depth3, depth4,
+                    depth5, depth6, 0, 0, "", "", "", "", "", "");
+        } else if ("7".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+            float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
+            float abs6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv3), "0"));
+            float abs7 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(6).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+            float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
+            float depth6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv2), "0"));
+            float depth7 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(6).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, abs4, abs5, abs6, abs7, 0, depth1, depth2, depth3, depth4,
+                    depth5, depth6, depth7, 0, "", "", "", "", "", "");
+        } else if ("8".equals(SDnum)) {
+            float abs1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv3), "0"));
+            float abs2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv3), "0"));
+            float abs3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv3), "0"));
+            float abs4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv3), "0"));
+            float abs5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv3), "0"));
+            float abs6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv3), "0"));
+            float abs7 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(6).findViewById(R.id.tv3), "0"));
+            float abs8 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(7).findViewById(R.id.tv3), "0"));
+            float depth1 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(0).findViewById(R.id.tv2), "0"));
+            float depth2 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(1).findViewById(R.id.tv2), "0"));
+            float depth3 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(2).findViewById(R.id.tv2), "0"));
+            float depth4 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(3).findViewById(R.id.tv2), "0"));
+            float depth5 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(4).findViewById(R.id.tv2), "0"));
+            float depth6 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(5).findViewById(R.id.tv2), "0"));
+            float depth7 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(6).findViewById(R.id.tv2), "0"));
+            float depth8 = Float.parseFloat(getTextViewText(lvHuigui.getChildAt(7).findViewById(R.id.tv2), "0"));
+            itemBean = new ItemBean("", "", code, pid, print, t_type, name, unit, 0, method,
+                    mesf, "", ref, 0, 0, 0, "", "", rtype, rt_value,
+                    rt_value_min, 0, "", testtime, "", "", aglo, SDnum, abs1,
+                    abs2, abs3, abs4, abs5, abs6, abs7, abs8, depth1, depth2, depth3, depth4,
+                    depth5, depth6, depth7, depth8, "", "", "", "", "", "");
+        }
         session.getItemBeanDao().insertOrReplace(itemBean);
         SetHuiguiList(itemBean);
     }
