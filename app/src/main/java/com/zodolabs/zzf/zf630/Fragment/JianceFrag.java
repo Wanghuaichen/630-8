@@ -1,10 +1,12 @@
 package com.zodolabs.zzf.zf630.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
@@ -86,11 +88,11 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
 
     UsbManager usbManager;
 
-    List<HashMap<Integer, JianceBean>> dataList;
     private HashMap<String, UsbDevice> deviceList;
     private Iterator<UsbDevice> deviceIterator;
     private USBFactory usbfactory;
     boolean isConnectedUsb;
+    UsbDevice usbDevice;
 
     @Override
     protected int setContentView() {
@@ -133,7 +135,6 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
     protected void initEvent(Bundle savedInstanceState) {
         zijianlist = new ArrayList<>();
         jianlist = new ArrayList<>();
-        dataList = new ArrayList<>();
         session = App.getInstance().getDaosession();
         itemBeanList = session.getItemBeanDao().queryBuilder().orderAsc(ItemBeanDao.Properties.Print).list();
         unitList = session.getUnitDao().loadAll();
@@ -185,16 +186,6 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
     private void initUsb() {
         usbfactory = USBFactory.getUsbFactory(getActivity());
         usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
-        deviceList = usbManager.getDeviceList();
-        toast("devicelist size:" + deviceList.size());
-        if (deviceList.size() > 0) {
-            for (Map.Entry<String, UsbDevice> entry : deviceList.entrySet()) {
-                UsbDevice usbDevice = entry.getValue();
-                isConnectedUsb = usbfactory.connectUsb(usbManager, usbDevice);
-                toast("isconnectedUsb:" + isConnectedUsb);
-            }
-        }
-
     }
 
     /*初始化蓝牙，建立连接*/
@@ -332,7 +323,15 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
                                     }
                                 }
                                 String result = ((TextView) lv.getChildAt(i).findViewById(R.id.it_jcjg)).getText().toString();
-                                saveJianceBean2DB(i, xgdvalue, nongdu, result);
+                                String jcbh = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypbh));
+                                String jcxm = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_jcxm));
+                                String ypmc = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypmc));
+                                String ypfl = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypfl));
+                                String ypcd = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypcd));
+                                String lydw = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_lydw));
+                                JianceBean jianceBean = new JianceBean(Long.valueOf(jcbh), jcxm, ypmc, ypfl,
+                                        ypcd, lydw, String.format("%.3f", xgdvalue), String.format("%.3f", nongdu), result, new Date(), "0");
+                                saveJianceBean2DB(jianceBean);
                             }
                         }
                     } else {
@@ -365,17 +364,9 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
         }
     };
 
-    private void saveJianceBean2DB(int i, double xgdvalue, double nongdu, String result) {
-        String jcbh = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypbh));
-        String jcxm = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_jcxm));
-        String ypmc = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypmc));
-        String ypfl = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypfl));
-        String ypcd = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypcd));
-        String lydw = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_lydw));
-        JianceBean jianceBean;
-        session.getJianceBeanDao().insertOrReplace(jianceBean = new JianceBean(Long.valueOf(jcbh), jcxm, ypmc, ypfl,
-                ypcd, lydw, String.format("%.3f", xgdvalue), String.format("%.3f", nongdu), result, new Date(), "0"));
-        Log.d(TAG, "" + session.getJianceBeanDao().loadAll().size() + jianceBean.toString());
+    private void saveJianceBean2DB(JianceBean jianceBean) {
+        session.getJianceBeanDao().insertOrReplace(jianceBean);
+//        Log.d(TAG, "" + jianceBean.toString());
     }
 
     /*将下位机返回的数据进行剥离*/
@@ -554,10 +545,46 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
     }
 
     private void doPrint() {
+        deviceList = usbManager.getDeviceList();
+        Log.d(TAG, "devicelist size:" + deviceList.size());
+        if (deviceList.size() > 0) {
+            for (Map.Entry<String, UsbDevice> entry : deviceList.entrySet()) {
+                usbDevice = entry.getValue();
+                PendingIntent mPermissionIntent = PendingIntent.getBroadcast(getActivity(), 0, new Intent(getActivity().getApplicationInfo().packageName), 0);
+                if (!usbManager.hasPermission(usbDevice)) {
+                    usbManager.requestPermission(usbDevice,
+                            mPermissionIntent);
+                }
+            }
+        }
+        isConnectedUsb = usbfactory.connectUsb(usbManager, usbDevice);
         if (isConnectedUsb) {
-            usbfactory.PrintTest();
+            String check=getTextViewText((TextView) lv.getChildAt(0).findViewById(R.id.it_ypbh),"0");
+            if("0".equals(check)){
+                toast("请先布板检测，然后再打印");
+                return;
+            }
+            for (int i = 0; i < 8; i++) {
+                String ypbh = getTextViewText(((TextView) lv.getChildAt(i).findViewById(R.id.it_ypbh)), "0");
+                if ("0".equals(ypbh)) {
+                } else {
+                    String jcbh = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypbh));
+                    String jcxm = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_jcxm));
+                    String ypmc = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypmc));
+                    String ypfl = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypfl));
+                    String ypcd = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_ypcd));
+                    String lydw = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_lydw));
+                    String xgd = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_xgd));
+                    String jcz = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_jcz));
+                    String jcjg = getTextViewText((TextView) lv.getChildAt(i).findViewById(R.id.it_jcjg));
+                    String msg = "样品编号:" + jcbh + "\n样品名称:" + ypmc + "\n样品分类:" + ypfl +
+                            "\n检测项目:" + jcxm + "\n样品产地:" + ypcd + "\n来源单位:" + lydw + "\n吸光度:" + xgd + "\n检测值:" +
+                            jcz + "\n检测结果:" + jcjg + "\n\n\n";
+                    usbfactory.PrintText(msg, "1", "1", 20);
+                }
+            }
         } else {
-            toast("未发现USB设备");
+            toast("请检查USB打印设备是否正常连接");
         }
     }
 
@@ -584,6 +611,9 @@ public class JianceFrag extends UltimateFragment implements View.OnClickListener
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (usbfactory.is_connecusb()) {
+            usbfactory.CloseUSB();
+        }
         if (mChatService != null) {
             mChatService.stop();
         }

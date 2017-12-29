@@ -31,7 +31,11 @@
         <activity android:name=".CheckActivity" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
     </application>
 
 </manifest>

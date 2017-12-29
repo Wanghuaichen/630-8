@@ -32,6 +32,8 @@ public class GuojiFrag extends UltimateFragment {
     List<ItemBean> list;
     GuoAdapter guoAdapter;
 
+    int curitem;
+
     @Override
     protected int setContentView() {
         return R.layout.frag_guoji;
@@ -62,6 +64,9 @@ public class GuojiFrag extends UltimateFragment {
             @Override
             public void onRecycleItemClickListener(ItemBean itemBean, View view, int position, long id, int type) {
                 tvContent.setText(itemBean.getReserve());
+                guoAdapter.notifyItemChanged(curitem);
+                curitem = position;
+                guoAdapter.notifyItemChanged(curitem);
             }
         });
     }
@@ -76,6 +81,11 @@ public class GuojiFrag extends UltimateFragment {
             holder.setText(R.id.tv1, itemBean.getPrint());
             holder.setText(R.id.tv2, itemBean.getCode());
             holder.setText(R.id.tv3, itemBean.getName());
+            if (position == curitem) {
+                holder.setBackgroundColor(R.id.lin_item, getColor(R.color.android_holo_blue));
+            }else{
+                holder.setBackgroundColor(R.id.lin_item, getColor(R.color.white));
+            }
         }
     }
 }

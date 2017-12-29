@@ -265,10 +265,10 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(edName.getText())){
+                if (TextUtils.isEmpty(edName.getText())) {
                     saveItemBean();
-                }else{
-                    saveItemBean(list.get(itemPostion).getSDNum());
+                } else {
+                    saveItemBean(getTextViewText(tvShuliang,"6"));
                 }
                 list.clear();
                 list.addAll(session.getItemBeanDao().queryBuilder().orderAsc(ItemBeanDao.Properties.Print).list());
@@ -278,28 +278,33 @@ public class XiangmuFrag extends UltimateFragment implements View.OnClickListene
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle("信息提示")
-                        .setMessage("您确定要删除" + list.get(itemPostion).getCode() + "项目?")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                session.getItemBeanDao().delete(list.get(itemPostion));
-                                list.clear();
-                                list.addAll(session.getItemBeanDao().queryBuilder().orderAsc(ItemBeanDao.Properties.Print).list());
-                                adapter.notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.android_holo_blue));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.android_holo_blue));
+                try {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                            .setTitle("信息提示")
+                            .setMessage("您确定要删除" + list.get(itemPostion).getCode() + "项目?")
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    session.getItemBeanDao().delete(list.get(itemPostion));
+                                    list.clear();
+                                    list.addAll(session.getItemBeanDao().queryBuilder().orderAsc(ItemBeanDao.Properties.Print).list());
+                                    adapter.notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.android_holo_blue));
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.android_holo_blue));
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                    toast("请先选中项目后再删除");
+                }
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {

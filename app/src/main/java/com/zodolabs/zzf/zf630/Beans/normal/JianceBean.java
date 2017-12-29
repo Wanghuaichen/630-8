@@ -152,6 +152,10 @@ public class JianceBean {
 
     @Override
     public String toString() {
-        return ""+ypbh+","+ypmc+","+ypfl+","+jcxm+","+ypcd+","+lydw+","+date+","+xgd+","+jcz+","+jcjg+","+upload+"\n";
+        return ""+String.valueOf(ypbh)+","+ypmc+","+ypfl+","+jcxm+","+ypcd+","+lydw+","+date+","+xgd+","+jcz+","+jcjg+","+upload+"\n";
+    }
+
+    public String formatString(){
+        return "样品编号:"+String.valueOf(ypbh)+"\n样品名称:"+ypmc+"\n样品分类:"+ypfl+"\n检测项目:"+jcxm+"\n样品产地:"+ypcd+"\n来源单位:"+lydw+"\n吸光度:"+xgd+"\n检测值:"+jcz+"\n检测结果:"+jcjg+","+upload+"\n";
     }
 }
